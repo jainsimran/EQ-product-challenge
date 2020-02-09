@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BarGraph from '../components/BarGraph';
+import LineGraph from '../components/LineGraph';
 import { fetchEventDailyData, fetchEventHourlyData } from '../apis/product';
 
 export default class DataChartSection extends Component {
@@ -8,7 +8,8 @@ export default class DataChartSection extends Component {
         this.state = {
             dataFrequencyType: 'daily',
             label: [],
-            data: []
+            data: [],
+            title: 'Daily events'
         }
         this.getHourlyEventsData= this.getHourlyEventsData.bind(this);
         this.getDailyEventsData= this.getDailyEventsData.bind(this);
@@ -38,7 +39,8 @@ export default class DataChartSection extends Component {
             });
             this.setState({
                 label: eventnum,
-                data:  eventhour
+                data:  eventhour,
+                title: 'Hourly events'
             })
         }) 
     }
@@ -55,7 +57,8 @@ export default class DataChartSection extends Component {
             });
             this.setState({
                 label: eventdate,
-                data: eventnum
+                data: eventnum,
+                titel: 'Daily events'
             })
         })
     }
@@ -91,7 +94,7 @@ export default class DataChartSection extends Component {
                     />
                     Hourly events
                 </label>
-                <BarGraph label={this.state.label} data={this.state.data} />
+                <LineGraph label={this.state.label} data={this.state.data} title={this.state.title}/>
                 Hello data chart section
             </div>
         )

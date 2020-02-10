@@ -20,6 +20,8 @@ export default class LineGraph extends Component {
             title: this.props.title
         };
 
+    
+
         return (
             <Line
                 data={data}

@@ -73,7 +73,7 @@ export default class DataChartSection extends Component {
 
     render() {
         return (
-            <div>
+            <div className="cardEffect">
                 <h1>Show</h1>
                 <label>
                     <input

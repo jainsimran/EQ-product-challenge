@@ -53,7 +53,7 @@ export default class DataTableSection extends Component {
     formatDate = inputDate => inputDate.split('T')[0];
     render() {
         return (
-            <div>
+            <div className='cardEffect'>
                 {/* <h1>Data Table </h1> */}
                 <Datatable data={this.state.data} columns={this.state.columns}/>
             </div>

@@ -74,7 +74,7 @@ export default class DataChartSection extends Component {
     render() {
         return (
             <div className="cardEffect">
-                <h1>Show</h1>
+                <h1>Display</h1>
                 <label>
                     <input
                         type="radio"
@@ -87,7 +87,6 @@ export default class DataChartSection extends Component {
                 <label>
                     <input
                         type="radio"
-                        name="events"
                         value="hourly"
                         onChange={this.handleChangeDataFrequencyType}
                         checked={this.state.dataFrequencyType === 'hourly'}
@@ -95,7 +94,6 @@ export default class DataChartSection extends Component {
                     Hourly events
                 </label>
                 <LineGraph label={this.state.label} data={this.state.data} title={this.state.title}/>
-                Hello data chart section
             </div>
         )
     }

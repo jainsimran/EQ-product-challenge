@@ -16,6 +16,12 @@ const fetchStatsDaily = () => {
     return response.json();
   })
 }
+const fetchStatsHourly = () => {
+  return fetch('http://localhost:5555/stats/hourly')
+  .then((response) => {
+    return response.json();
+  })
+}
 const fetchPoiData = () => {
   return fetch('http://localhost:5555/poi')
   .then((response) => {
@@ -27,5 +33,6 @@ export {
     fetchEventHourlyData,
     fetchEventDailyData,
     fetchStatsDaily,
-    fetchPoiData
+    fetchPoiData,
+    fetchStatsHourly
 };

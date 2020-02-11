@@ -1,39 +1,43 @@
 import React, { Component } from 'react';
-import {fetchPoiData} from '../apis/product';
+import { fetchPoiData } from '../apis/product';
 import MapContainer from '../components/Map';
 
 export default class DataMapSection extends Component {
-    constructor(){
+    constructor() {
         super();
-        this.state= {
+        this.state = {
             poi: []
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         fetchPoiData()
-        .then(data =>{
-            let poiData = [];
-            data.forEach((element) => {
-                poiData.push({
-                    id:element.poi_id, 
-                    name:element.name, 
-                    lat:element.lat, 
-                    lon:element.lon})
-            });
-            this.setState({
-                poi: poiData
+            .then(data => {
+                let poiData = [];
+                data.forEach((element) => {
+                    poiData.push({
+                        id: element.poi_id,
+                        name: element.name,
+                        lat: element.lat,
+                        lon: element.lon
+                    })
+                });
+                this.setState({
+                    poi: poiData
+                })
+                console.log(poiData);
             })
-        console.log(poiData);
-        })
 
     }
 
     render() {
         return (
-            <div className='cardEffect'>
-                <MapContainer poi= {this.state.poi}/>
-            </div>
+            <React.Fragment>
+                <section className='cardEffect'>
+                    <MapContainer poi={this.state.poi}  />
+                </section>
+            </React.Fragment>
+
         )
     }
 }

@@ -68,8 +68,6 @@ export default class LineGraph extends Component {
                         },
                         speed: 0.5
                     }
-
-
                 }}
             />
         )

@@ -73,7 +73,7 @@ export default class DataChartSection extends Component {
 
     render() {
         return (
-            <div className="cardEffect">
+            <section className="cardEffect">
                 <h1>Display</h1>
                 <label>
                     <input
@@ -94,7 +94,7 @@ export default class DataChartSection extends Component {
                     Hourly events
                 </label>
                 <LineGraph label={this.state.label} data={this.state.data} title={this.state.title}/>
-            </div>
+            </section>
         )
     }
 }

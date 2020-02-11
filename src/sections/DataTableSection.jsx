@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Datatable from '../components/Datatable';
 import { fetchStatsDaily, fetchPoiAllMetrics } from '../apis/product';
+import FuzzySearch from '../components/FuzzySearch';
 
 export default class DataTableSection extends Component {
     constructor() {
@@ -125,7 +126,7 @@ export default class DataTableSection extends Component {
 
     render() {
         return (
-            <div className='cardEffect' id='scrollTable'>
+            <section className='cardEffect' id='scrollTable'>
                 <h1>Display</h1>
                 <label>
                     <input
@@ -145,8 +146,9 @@ export default class DataTableSection extends Component {
                     />
                     Hourly statistics
                 </label>
+                {this.state.dataFrequencyType === 'hourly' ? <FuzzySearch/> : null}
                 <Datatable data={this.state.data} columns={this.state.columns} title={this.state.title} />
-            </div>
+            </section>
         )
     }
 }

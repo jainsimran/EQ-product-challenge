@@ -4,6 +4,7 @@ import DataTable from 'react-data-table-component';
 const customStyles = {
     rows: {
       style: {
+        position: 'sticky',
         minHeight: '72px', // override the row height
       }
     },
@@ -29,7 +30,7 @@ export default class Datatable extends Component {
         return (
             <div>
                 <DataTable
-                    title="Data table Daily"
+                    title={this.props.title}
                     columns={this.props.columns}
                     data={this.props.data}
                     customStyles={customStyles}

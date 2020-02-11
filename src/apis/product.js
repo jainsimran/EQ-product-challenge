@@ -28,11 +28,18 @@ const fetchPoiData = () => {
     return response.json();
   })
 }
+const fetchPoiAllMetrics = () =>{
+  return fetch('http://localhost:5555/join/poi/stats_hourly')
+  .then((response) => {
+    return response.json();
+  })
+}
 
 export {
     fetchEventHourlyData,
     fetchEventDailyData,
     fetchStatsDaily,
     fetchPoiData,
-    fetchStatsHourly
+    fetchStatsHourly,
+    fetchPoiAllMetrics
 };

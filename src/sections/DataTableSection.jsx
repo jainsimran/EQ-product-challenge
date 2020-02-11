@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import Datatable from '../components/Datatable';
-import {fetchStatsDaily, fetchStatsHourly} from '../apis/product';
+import { fetchStatsDaily, fetchPoiAllMetrics } from '../apis/product';
 
 export default class DataTableSection extends Component {
-    constructor(){
+    constructor() {
         super();
-        this.state= {
+        this.state = {
             data: [],
             columns: [],
-            dataFrequencyType: 'daily',
+            dataFrequencyType: 'hourly',
             title: 'Daily statistics'
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getDailyStatsData()
     }
 
-    componentDidUpdate(){
-        if (this.state.dataFrequencyType==='hourly'){
+    componentDidUpdate() {
+        if (this.state.dataFrequencyType === 'hourly') {
             this.getHourlyStatsData();
         }
         else {
@@ -26,88 +26,91 @@ export default class DataTableSection extends Component {
         }
     }
 
-    getDailyStatsData(){
+    getDailyStatsData() {
         fetchStatsDaily()
-        .then(data => {
-            let statsData= [];
-            let statsColumns= [{
-                name: 'date',
-                selector: 'date',
-                sortable: true,
-            },
-            {
-                name: 'impressions',
-                selector: 'impressions',
-                sortable: true
-            },
-            {
-                name: 'clicks',
-                selector: 'clicks',
-                sortable: true
-            },
-            {
-                name: 'revenue',
-                selector: 'revenue',
-                sortable: true
-            }];
-            data.forEach((e)  => {
-                statsData.push({
-                    date: this.formatDate(e.date), 
-                    impressions: e.impressions, 
-                    clicks: e.clicks,
-                    revenue: e.revenue })
-            });
-            this.setState({
-                data: statsData,
-                columns: statsColumns,
-                title: 'Daily statistics'
+            .then(data => {
+                let statsData = [];
+                let statsColumns = [{
+                    name: 'date',
+                    selector: 'date',
+                    sortable: true,
+                },
+                {
+                    name: 'impressions',
+                    selector: 'impressions',
+                    sortable: true
+                },
+                {
+                    name: 'clicks',
+                    selector: 'clicks',
+                    sortable: true
+                },
+                {
+                    name: 'revenue',
+                    selector: 'revenue',
+                    sortable: true
+                }];
+                data.forEach((e) => {
+                    statsData.push({
+                        date: this.formatDate(e.date),
+                        impressions: e.impressions,
+                        clicks: e.clicks,
+                        revenue: e.revenue
+                    })
+                });
+                this.setState({
+                    data: statsData,
+                    columns: statsColumns,
+                    title: 'Daily statistics'
+                })
             })
-        })
     }
 
-    getHourlyStatsData(){
-        fetchStatsHourly()
-        .then(data => {
-            let statsColumns= [{
-                name: 'date',
-                selector: 'date',
-                sortable: true,
-            },
-            {
-                name: 'hour',
-                selector: 'hour',
-                sortable: true
-            },
-            {
-                name: 'impressions',
-                selector: 'impressions',
-                sortable: true
-            },
-            {
-                name: 'clicks',
-                selector: 'clicks',
-                sortable: true
-            },
-            {
-                name: 'revenue',
-                selector: 'revenue',
-                sortable: true
-            }];
-            let statsData= [];
-            data.forEach((e)  => {
-                statsData.push({
-                    date: this.formatDate(e.date), 
-                    impressions: e.impressions, 
-                    clicks: e.clicks,
-                    revenue: e.revenue, 
-                    hour: e.hour})
-            });
-            this.setState({
-                data: statsData,
-                columns: statsColumns,
-                title: 'Hourly statistics'
+    getHourlyStatsData() {
+        fetchPoiAllMetrics()
+            .then(data => {
+                let statsColumns = [
+                    {
+                        name: 'name',
+                        selector: 'name'
+                    },
+                    {
+                        name: 'date',
+                        selector: 'date'
+                    },
+                    {
+                        name: 'hour',
+                        selector: 'hour'
+                    },
+                    {
+                        name: 'impressions',
+                        selector: 'impressions'
+                    },
+                    {
+                        name: 'clicks',
+                        selector: 'clicks'
+                    },
+                    {
+                        name: 'revenue',
+                        selector: 'revenue'
+                    }];
+                let statsData = [];
+                data.forEach((e) => {
+                    statsData.push({
+                        name: e.name,
+                        date: this.formatDate(e.date),
+                        impressions: e.impressions,
+                        clicks: e.clicks,
+                        revenue: this.roundedRevenue(e.revenue),
+                        hour: e.hour
+                    })
+                });
+                this.setState({
+                    data: statsData,
+                    columns: statsColumns,
+                    title: 'Hourly statistics'
+                })
             })
-        })
     }
 
     handleChangeDataFrequencyType = (event) => {
@@ -117,6 +120,8 @@ export default class DataTableSection extends Component {
     }
 
     formatDate = inputDate => inputDate.split('T')[0];
+
+    roundedRevenue = inputRevenue => inputRevenue.split('.')[0];
 
     render() {
         return (
@@ -129,7 +134,7 @@ export default class DataTableSection extends Component {
                         onChange={this.handleChangeDataFrequencyType}
                         checked={this.state.dataFrequencyType === 'daily'}
                     />
-                    Daily statistics 
+                    Daily statistics
                 </label>
                 <label>
                     <input
@@ -140,7 +145,7 @@ export default class DataTableSection extends Component {
                     />
                     Hourly statistics
                 </label>
-                <Datatable data={this.state.data} columns={this.state.columns} title={this.state.title}/>
+                <Datatable data={this.state.data} columns={this.state.columns} title={this.state.title} />
             </div>
         )
     }

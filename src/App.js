@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DataChartSection from './sections/DataChartSection';
 import DataTableSection from './sections/DataTableSection';
-import MapContainer from './components/Map';
+import DataMapSection from './sections/DataMapSection';
 
 export default class App extends Component {
   render() {
@@ -9,7 +9,7 @@ export default class App extends Component {
       <section>
         <DataChartSection/>
         <DataTableSection/>
-        <MapContainer />
+        <DataMapSection />
       </section>
     )
   }

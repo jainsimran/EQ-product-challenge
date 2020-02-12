@@ -9,43 +9,35 @@ export default class DataChartSection extends Component {
             dataFrequencyType: 'daily',
             label: [],
             data: [],
-            title: 'Daily events'
+            title: 'Daily events',
+            date: []
         }
-        this.getHourlyEventsData= this.getHourlyEventsData.bind(this);
-        this.getDailyEventsData= this.getDailyEventsData.bind(this);
     }
+
     componentDidMount(){
         this.getDailyEventsData()
     }
 
-    componentDidUpdate() {
-        if (this.state.dataFrequencyType==='hourly'){
-            this.getHourlyEventsData();
-        }
-        else {
-            this.getDailyEventsData();
-        }
-    }
-
-    getHourlyEventsData(){
+    getHourlyEventsData = () => {
         fetchEventHourlyData()
         .then(eventdata => {
             // console.log(eventdata)
             let eventhour = [];
             let eventnum = [];
+            let eventdate = [];
             eventdata.forEach((e) => {
                 eventhour.push(e.hour)
                 eventnum.push(e.events)
+                eventdate.push(this.formatDate(e.date));
             });
             this.setState({
                 label: eventnum,
-                data:  eventhour,
-                title: 'Hourly events'
+                data:  eventhour
             })
         }) 
     }
 
-    getDailyEventsData(){
+    getDailyEventsData = () => {
         fetchEventDailyData()
         .then(eventdata => {
             // console.log(eventdata);
@@ -57,24 +49,36 @@ export default class DataChartSection extends Component {
             });
             this.setState({
                 label: eventdate,
-                data: eventnum,
-                titel: 'Daily events'
+                data: eventnum
             })
         })
     }
 
     formatDate = inputDate => inputDate.split('T')[0];
 
+    switchData = () => {
+        console.log(this.state.dataFrequencyType);
+        if (this.state.dataFrequencyType ==='hourly'){
+            this.getHourlyEventsData();
+            console.log(this.state.dataFrequencyType);
+        }
+        else{
+            this.getDailyEventsData();
+            console.log(this.state.dataFrequencyType);
+        }
+    }
+
     handleChangeDataFrequencyType = (event) => {
         this.setState({
-            dataFrequencyType: event.target.value,
-        })
+            dataFrequencyType: event.target.value
+        }, this.switchData);
+
     }
 
     render() {
         return (
             <section className="cardEffect">
-                <h1>Display</h1>
+                <h2>Display</h2>
                 <label>
                     <input
                         type="radio"

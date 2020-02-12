@@ -8,7 +8,7 @@ export default class LineGraph extends Component {
             labels: this.props.label,
             datasets: [
                 {
-                    label: 'Events',
+                    label: this.props.metrics,
                     fill: false,
                     lineTension: 0.5,
                     backgroundColor: 'rgba(75,192,192,1)',
@@ -19,8 +19,6 @@ export default class LineGraph extends Component {
             ],
             title: this.props.title
         };
-
-    
 
         return (
             <Line
@@ -45,28 +43,20 @@ export default class LineGraph extends Component {
                     pan: {
                         enabled: true,
                         mode: 'x',
-                        rangeMin: {
-                            x: 20,
-                            y: 20
-                        },
-                        rangeMax: { 
-                            x: 40,
-                            y: 40
-                        },
-                        speed: 0.5
+                        speed: 1
                     },
                     zoom: {
                         enabled: true,
                         mode: 'x',
                         rangeMin: {
-                            x: 15,
-                            y: 10
+                            x: 40,
+                            y: 40
                         },
                         rangeMax: { 
-                            x: 20,
-                            y: 20
+                            x: 40,
+                            y: 40
                         },
-                        speed: 0.5
+                        speed: 1
                     }
                 }}
             />

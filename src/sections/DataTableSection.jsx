@@ -7,6 +7,7 @@ export default class DataTableSection extends Component {
     constructor() {
         super();
         this.state = {
+            searchedDataset: [], // list of ids of all tuples that has search string
             data: [],
             columns: [],
             dataFrequencyType: 'hourly',
@@ -15,16 +16,30 @@ export default class DataTableSection extends Component {
     }
 
     componentDidMount() {
-        this.getDailyStatsData()
+        this.getHourlyStatsData();
     }
 
     componentDidUpdate() {
-        if (this.state.dataFrequencyType === 'hourly') {
-            this.getHourlyStatsData();
+        // if (this.state.dataFrequencyType === 'hourly') {
+        //     this.getHourlyStatsData();
+        // }
+        // else {
+        //     this.getDailyStatsData();
+        // }
+    }
+
+    searchHandler = (str) => {
+        if (!str.trim()) {
+            this.setState({
+                searchedDataset: [],
+            });
+            return;
         }
-        else {
-            this.getDailyStatsData();
-        }
+        const strContainingIdxs = [];
+        this.state.data.map((item, idx) => item.name.toLowerCase().includes(str.toLowerCase()) ? strContainingIdxs.push(idx): null);
+        this.setState({
+            searchedDataset: strContainingIdxs,
+        });
     }
 
     getDailyStatsData() {
@@ -115,9 +130,10 @@ export default class DataTableSection extends Component {
     }
 
     handleChangeDataFrequencyType = (event) => {
+        console.log('New value is ' +event.target.value);
         this.setState({
             dataFrequencyType: event.target.value,
-        })
+        });
     }
 
     formatDate = inputDate => inputDate.split('T')[0];
@@ -127,7 +143,7 @@ export default class DataTableSection extends Component {
     render() {
         return (
             <section className='cardEffect' id='scrollTable'>
-                <h1>Display</h1>
+                <h2>Display</h2>
                 <label>
                     <input
                         type="radio"
@@ -146,8 +162,13 @@ export default class DataTableSection extends Component {
                     />
                     Hourly statistics
                 </label>
-                {this.state.dataFrequencyType === 'hourly' ? <FuzzySearch/> : null}
-                <Datatable data={this.state.data} columns={this.state.columns} title={this.state.title} />
+                {this.state.dataFrequencyType === 'hourly' ? <FuzzySearch searchHandler={this.searchHandler}/> : null}
+                <Datatable
+                    data={this.state.data} 
+                    columns={this.state.columns} 
+                    title={this.state.title} 
+                    highlightIdxs={this.state.searchedDataset}    
+                />
             </section>
         )
     }

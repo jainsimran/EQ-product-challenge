@@ -1,45 +1,23 @@
 import React, { Component } from 'react';
-import DataTable from 'react-data-table-component';
-
-const customStyles = {
-  header: {
-    style: {
-      fontColor: 'red',
-      fontWeight: '900',
-    }
-  },
-  rows: {
-    style: {
-      minHeight: '72px', // override the row height
-    }
-  },
-  headCells: {
-    style: {
-      fontSize: '20px',
-      fontWeight: '500',
-      textTransform: 'uppercase',
-      paddingLeft: '0 8px'
-    },
-  },
-  cells: {
-    style: {
-      fontSize: '17px',
-      paddingLeft: '0 8px',
-    },
-  },
-};
 
 export default class Datatable extends Component {
   render() {
+    console.log(this.props.highlightIdxs);
     return (
-      <React.Fragment>
-        <DataTable
-          title={this.props.title}
-          columns={this.props.columns}
-          data={this.props.data}
-          customStyles={customStyles}
-        />
-      </React.Fragment>
+        <table>
+          <tbody>
+          <tr>
+            {this.props.columns.map(col => (<th>{col.name}</th>))}
+          </tr>
+          {
+            this.props.data.map((item, idx) => (
+              <tr className={this.props.highlightIdxs.includes(idx) ? 'highlight' : null }  >
+                {this.props.columns.map(col => (<td>{item[col.name]}</td>))}
+              </tr>
+            ))
+          }
+          </tbody>
+        </table>
     )
   }
 }

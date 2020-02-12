@@ -1,6 +1,5 @@
-import React, { Component, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
-import { fetchPoiAllMetrics } from '../apis/product';
 import useSupercluster from "use-supercluster";
 import useSwr from "swr";
 
@@ -43,7 +42,7 @@ export default function MapContainer() {
   });
 
   return (
-    <div className='cardEffect' style={{ height: "50vw", width: "80%" }}>
+    <div style={{ height: "50vw", width: "100%" }}>
       <GoogleMapReact
         bootstrapURLKeys={{
           key: `AIzaSyCk79ODgAFqY9di7oVX5Zh_zdIyecxZvks`,
@@ -51,7 +50,7 @@ export default function MapContainer() {
         }}
 
         defaultCenter={{ lat: 43.6708, lng: -79.3899 }}
-        defaultZoom={8}
+        defaultZoom={2}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map }) => {
           mapRef.current = map;

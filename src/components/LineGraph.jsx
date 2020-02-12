@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import * as zoom from 'chartjs-plugin-zoom';
+import 'chartjs-plugin-zoom'
 
 export default class LineGraph extends Component {
     render() {

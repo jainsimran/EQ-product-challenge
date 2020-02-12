@@ -1,38 +1,120 @@
-import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import React, { Component, useRef, useState } from 'react';
+import GoogleMapReact from 'google-map-react';
+import { fetchPoiAllMetrics } from '../apis/product';
+import useSupercluster from "use-supercluster";
+import useSwr from "swr";
 
-const mapStyles = {
-  width: '80%',
-  height: '60%',
-};
+const fetcher = (...args) => fetch(...args).then(response => response.json());
 
-export class MapContainer extends Component {
-  displayMarkers = () => {
-    return this.props.poi.map((poi, id) => {
-      return <Marker key={id} position={{
-        lat: poi.lat,
-        lng: poi.lon
-      }}
-        onClick={() => console.log(this.props.poi)} />
-    })
-  }
+const Marker = ({ children }) => children;
 
-  render() {
-    return (
-      <React.Fragment>
-        <Map
-          google={this.props.google}
-          zoom={8}
-          style={mapStyles}
-          initialCenter={{ lat: 43.6708, lng: -79.3899 }}
-        >
-          {this.displayMarkers()}
-        </Map>
-      </React.Fragment>
-    );
-  }
+export default function MapContainer() {
+
+  const url = "http://localhost:5555/join/poi/stats_hourly";
+
+  const { data, error } = useSwr(url, { fetcher });
+
+  const poiData = data && !error ? data.slice(0, 2000) : [];
+
+  const points = poiData.map(poi => ({
+    type: "points of intrest",
+    properties: { cluster: false, id: poi.poi_id, name: poi.name },
+    geometry: {
+      type: "Point",
+      coordinates: [
+        poi.lon,
+        poi.lat
+      ]
+    }
+  })
+  )
+
+  const mapRef = useRef();
+
+  const [bounds, setBounds] = useState(null);
+
+  const [zoom, setZoom] = useState(10);
+
+  const { clusters, supercluster } = useSupercluster({
+    points,
+    bounds,
+    zoom,
+    options: { radius: 75, maxZoom: 20 }
+  });
+
+  return (
+    <div className='cardEffect' style={{ height: "50vw", width: "80%" }}>
+      <GoogleMapReact
+        bootstrapURLKeys={{
+          key: `AIzaSyCk79ODgAFqY9di7oVX5Zh_zdIyecxZvks`,
+          language: 'en'
+        }}
+
+        defaultCenter={{ lat: 43.6708, lng: -79.3899 }}
+        defaultZoom={8}
+        yesIWantToUseGoogleMapApiInternals
+        onGoogleApiLoaded={({ map }) => {
+          mapRef.current = map;
+        }}
+
+        onChange={({ zoom, bounds }) => {
+          setZoom(zoom);
+          setBounds([
+            bounds.nw.lng,
+            bounds.se.lat,
+            bounds.se.lng,
+            bounds.nw.lat
+          ]);
+        }}
+      >
+
+        {clusters.map(cluster => {
+          const [longitude, latitude] = cluster.geometry.coordinates;
+          const {
+            cluster: isCluster,
+            point_count: pointCount
+          } = cluster.properties;
+
+          if (isCluster) {
+            return (
+              <Marker
+                key={`cluster-${cluster.id}`}
+                lat={latitude}
+                lng={longitude}
+              >
+                <div className="cluster-marker"
+                  style={{
+                    width: `${10 + (pointCount / points.length) * 20}px`,
+                    height: `${10 + (pointCount / points.length) * 20}px`
+                  }}
+                  onClick={() => {
+                    const expansionZoom = Math.min(
+                      supercluster.getClusterExpansionZoom(cluster.id),
+                      20
+                    );
+                    mapRef.current.setZoom(expansionZoom);
+                    mapRef.current.panTo({ lat: latitude, lng: longitude });
+                  }}
+                >
+                  {pointCount}
+                </div>
+              </Marker>
+            );
+          }
+
+          return (
+            <Marker
+              key={`poi-${cluster.properties.poiId}`}
+              lat={latitude}
+              lng={longitude}
+            >
+              <button className='event-marker '>
+                <img src="../imgs/poi.svg" alt="" />
+              </button>
+            </Marker>
+          );
+        })}
+      </GoogleMapReact>
+    </div>
+  );
 }
-
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyCk79ODgAFqY9di7oVX5Zh_zdIyecxZvks'
-})(MapContainer);

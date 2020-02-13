@@ -130,7 +130,6 @@ export default class DataTableSection extends Component {
     }
 
     handleChangeDataFrequencyType = (event) => {
-        console.log('New value is ' +event.target.value);
         this.setState({
             dataFrequencyType: event.target.value,
         }, this.switchData);

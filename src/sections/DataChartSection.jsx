@@ -53,7 +53,6 @@ export default class DataChartSection extends Component {
                 this.setState({
                     formattedData: mapEventsPerDate
                 });
-                console.log(mapEventsPerDate);
             });
     }
 
@@ -79,14 +78,14 @@ export default class DataChartSection extends Component {
     formatDate = inputDate => inputDate.split('T')[0];
 
     switchData = () => {
-        console.log(this.state.dataFrequencyType);
+        // console.log(this.state.dataFrequencyType);
         if (this.state.dataFrequencyType === 'hourly') {
             this.getHourlyEventsData();
-            console.log(this.state.dataFrequencyType);
+            // console.log(this.state.dataFrequencyType);
         }
         else {
             this.getDailyEventsData();
-            console.log(this.state.dataFrequencyType);
+            // console.log(this.state.dataFrequencyType);
         }
     }
 

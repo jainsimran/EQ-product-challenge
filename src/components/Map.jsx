@@ -17,7 +17,13 @@ export default function MapContainer() {
 
   const points = poiData.map(poi => ({
     type: "points of intrest",
-    properties: { cluster: false, id: poi.poi_id, name: poi.name },
+    properties: {
+       cluster: false, 
+       id: poi.poi_id, 
+       name: poi.name,
+       impressions: poi.impressions,
+       revenue: poi.revenue
+      },
     geometry: {
       type: "Point",
       coordinates: [
@@ -41,8 +47,6 @@ export default function MapContainer() {
     options: { radius: 75, maxZoom: 20 }
   });
 
-  
-
   return (
     <div style={{ height: "50vw", width: "100%" }}>
       <GoogleMapReact
@@ -52,7 +56,7 @@ export default function MapContainer() {
         }}
 
         defaultCenter={{ lat: 43.6708, lng: -79.3899 }}
-        defaultZoom={2}
+        defaultZoom={10}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map }) => {
           mapRef.current = map;
@@ -70,9 +74,6 @@ export default function MapContainer() {
       >
 
         {clusters.map(cluster => {
-          const displayData = (selectedLabel) => {
-            console.log('selectedLabel');
-          }
           const [longitude, latitude] = cluster.geometry.coordinates;
           const {
             cluster: isCluster,
@@ -85,7 +86,6 @@ export default function MapContainer() {
                 key={`cluster-${cluster.id}`}
                 lat={latitude}
                 lng={longitude}
-                onClick={displayData}
               >
                 <div className="cluster-marker"
                   style={{
@@ -112,15 +112,19 @@ export default function MapContainer() {
               key={`poi-${cluster.properties.poiId}`}
               lat={latitude}
               lng={longitude}
-              onClick={displayData}
             >
-              <button className='event-marker'>
-                <img src="../imgs/poi.svg" alt="" />
+              <button className='event-marker'  
+              onClick={
+                (() => {console.log(`poi-${cluster.properties.name}`)})
+                }>
+
+                <div className="labelMaker"> </div>
               </button>
             </Marker>
           );
         })}
       </GoogleMapReact>
+      
     </div>
   );
 }

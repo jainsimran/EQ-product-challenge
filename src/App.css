@@ -1,3 +1,10 @@
+body {
+  --primaryColor: #5D737E;
+  --secondaryColor: #64B6AC;
+  font-family: 'Source Sans Pro', sans-serif;
+  /* background-color: var(--primaryColor); */
+  }
+
 .cardEffect{
   padding: 1%;
   margin: 20px auto;
@@ -5,24 +12,14 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   width: 80%;
 }
-.cardEffect h1{
-  display: block;
-  text-align: center;
-  font-size: 22px;
-}
 
-#scrollTable{
-  height: 500px;
-  overflow-y:auto;
-}
 input{
-  margin: 0 1%;
+  margin: 0 10px;
 }
 
 h2,
 input{
-  font-size: 20px;
-  text-align: center;
+  font-size: 18px;
   display: inline;
 }
 
@@ -36,7 +33,7 @@ input{
 
 .cluster-marker{
   color: #fff;
-  background: green;
+  background: var(--primaryColor);
   border-radius: 50%;
   padding: 10px;
   display: flex;
@@ -45,21 +42,44 @@ input{
 }
 
 .highlight{
-  background-color: greenyellow;
+  background-color: var(--secondaryColor)!important;
+  color: white;
+}
+
+h1{
+  /* margin: 30px 0 20px 0; */
+  font-weight: 500;
+  text-align: center;
+  font-size: 24px;
+  text-transform: uppercase;
 }
 
 table{
+  border-collapse: collapse;
   width: 100%;
-  margin-top: 5%;
-  font-size: 20px;
+  border: 1px solid #ddd;
 }
 
 table th{
-  padding: 1%;
+  background-color: var(--primaryColor);
+  color: white;
+  font-size: 20px;
+  font-weight: 300;
+  text-align: initial;
   text-transform: uppercase;
-  text-align: left;
 }
 
-table td{
+table td,
+table th
+{
   padding: 2%;
+  font-weight: 100;
+}
+
+tr:nth-child(even){
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd
 }

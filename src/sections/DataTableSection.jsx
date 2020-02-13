@@ -19,15 +19,6 @@ export default class DataTableSection extends Component {
         this.getHourlyStatsData();
     }
 
-    componentDidUpdate() {
-        // if (this.state.dataFrequencyType === 'hourly') {
-        //     this.getHourlyStatsData();
-        // }
-        // else {
-        //     this.getDailyStatsData();
-        // }
-    }
-
     searchHandler = (str) => {
         if (!str.trim()) {
             this.setState({
@@ -129,11 +120,20 @@ export default class DataTableSection extends Component {
             })
     }
 
+    switchData = () => {
+        if (this.state.dataFrequencyType === 'hourly') {
+            this.getHourlyStatsData();
+        }
+        else {
+            this.getDailyStatsData();
+        }
+    }
+
     handleChangeDataFrequencyType = (event) => {
         console.log('New value is ' +event.target.value);
         this.setState({
             dataFrequencyType: event.target.value,
-        });
+        }, this.switchData);
     }
 
     formatDate = inputDate => inputDate.split('T')[0];
@@ -142,7 +142,7 @@ export default class DataTableSection extends Component {
 
     render() {
         return (
-            <section className='cardEffect' id='scrollTable'>
+            <section className='cardEffect'>
                 <h2>Display</h2>
                 <label>
                     <input

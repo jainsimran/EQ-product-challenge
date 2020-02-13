@@ -21,14 +21,11 @@ export default class LineGraph extends Component {
         };
 
         return (
+            <div>
+            <h1>{data.title}</h1>
             <Line
                 data={data}
                 options={{
-                    title: {
-                        display: true,
-                        text: `${data.title}`,
-                        fontSize: 20
-                    },
                     legend: {
                         display: true,
                         position: 'right'
@@ -38,28 +35,39 @@ export default class LineGraph extends Component {
                             ticks: {
                                 beginAtZero: true
                             }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
                         }]
                     },
                     pan: {
                         enabled: true,
                         mode: 'x',
-                        speed: 1
+                        rangeMin: {
+                            x: 1
+                        },
+                        rangeMax: {
+                            x: 1
+                        },
+                        speed: 0.05
                     },
                     zoom: {
                         enabled: true,
                         mode: 'x',
                         rangeMin: {
-                            x: 40,
-                            y: 40
+                            x: 9
                         },
                         rangeMax: { 
-                            x: 40,
-                            y: 40
+                            x: 1
                         },
-                        speed: 1
+                        speed: 0.05
                     }
                 }}
             />
+
+            </div>
         )
     }
 }

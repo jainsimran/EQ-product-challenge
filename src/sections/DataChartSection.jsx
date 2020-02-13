@@ -10,7 +10,8 @@ export default class DataChartSection extends Component {
             formattedData: null,
             label: [],
             data: [],
-            title: 'Daily events',    
+            title: 'Daily events', 
+            xAxisLabel: ''   
         }
     }
 
@@ -69,7 +70,8 @@ export default class DataChartSection extends Component {
                 this.setState({
                     label: eventdate,
                     data: eventnum,
-                    title: 'Daily events'
+                    title: 'Daily events',
+                    xAxisLabel: 'Date'
                 })
             })
     }
@@ -107,7 +109,8 @@ export default class DataChartSection extends Component {
         });
         this.setState({
             label: newDateLabel,
-            data: newDateData
+            data: newDateData,
+            xAxisLabel: 'Hours in selected date'
         });
     }
 
@@ -144,7 +147,12 @@ export default class DataChartSection extends Component {
                     </select>
                 )}
 
-                <LineGraph label={this.state.label} data={this.state.data} title={this.state.title} />
+                <LineGraph 
+                label={this.state.label} 
+                data={this.state.data} 
+                title={this.state.title} 
+                xAxisLabel={this.state.xAxisLabel}
+                />
             </section>
         )
     }

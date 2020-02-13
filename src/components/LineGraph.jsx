@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
-import 'chartjs-plugin-zoom'
 
 export default class LineGraph extends Component {
     render() {
@@ -8,16 +7,17 @@ export default class LineGraph extends Component {
             labels: this.props.label,
             datasets: [
                 {
-                    label: this.props.metrics,
+                    label: 'EVENTS',
                     fill: false,
                     lineTension: 0.5,
                     backgroundColor: 'rgba(75,192,192,1)',
-                    borderColor: 'rgba(0,0,0,1)',
+                    borderColor: '#5D737E',
                     borderWidth: 2,
                     data: this.props.data
                 }
             ],
-            title: this.props.title
+            title: this.props.title,
+            xAxisLabel: this.props.xAxisLabel
         };
 
         return (
@@ -34,35 +34,21 @@ export default class LineGraph extends Component {
                         yAxes: [{
                             ticks: {
                                 beginAtZero: true
-                            }
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Event number'
+                              }
                         }],
                         xAxes: [{
                             ticks: {
                                 beginAtZero: true
-                            }
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: `${data.xAxisLabel}`
+                              }
                         }]
-                    },
-                    pan: {
-                        enabled: true,
-                        mode: 'x',
-                        rangeMin: {
-                            x: 1
-                        },
-                        rangeMax: {
-                            x: 1
-                        },
-                        speed: 0.05
-                    },
-                    zoom: {
-                        enabled: true,
-                        mode: 'x',
-                        rangeMin: {
-                            x: 9
-                        },
-                        rangeMax: { 
-                            x: 1
-                        },
-                        speed: 0.05
                     }
                 }}
             />

@@ -41,6 +41,8 @@ export default function MapContainer() {
     options: { radius: 75, maxZoom: 20 }
   });
 
+  
+
   return (
     <div style={{ height: "50vw", width: "100%" }}>
       <GoogleMapReact
@@ -68,6 +70,9 @@ export default function MapContainer() {
       >
 
         {clusters.map(cluster => {
+          const displayData = (selectedLabel) => {
+            console.log('selectedLabel');
+          }
           const [longitude, latitude] = cluster.geometry.coordinates;
           const {
             cluster: isCluster,
@@ -80,6 +85,7 @@ export default function MapContainer() {
                 key={`cluster-${cluster.id}`}
                 lat={latitude}
                 lng={longitude}
+                onClick={displayData}
               >
                 <div className="cluster-marker"
                   style={{
@@ -106,8 +112,9 @@ export default function MapContainer() {
               key={`poi-${cluster.properties.poiId}`}
               lat={latitude}
               lng={longitude}
+              onClick={displayData}
             >
-              <button className='event-marker '>
+              <button className='event-marker'>
                 <img src="../imgs/poi.svg" alt="" />
               </button>
             </Marker>

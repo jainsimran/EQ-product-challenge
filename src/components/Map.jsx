@@ -17,16 +17,16 @@ export default class Map extends Component {
 
     const Marker = () => {
       return (
-        <div className='labelMaker' 
+        <section className='labelMaker' 
         // onClick={() => <InfoWindow> <h1>{this.props.data.name}</h1> </InfoWindow>}
-        > </div>
+        > </section>
       );
     }
 
 
     const Poimarker = () => {
       return (
-        <div style={{ height: '50vh', width: '100%' }}>
+        <section style={{ height: '50vh', width: '100%' }}>
           <GoogleMapReact
             bootstrapURLKeys={{ key: `AIzaSyCk79ODgAFqY9di7oVX5Zh_zdIyecxZvks` }}
             defaultCenter={this.state.center}
@@ -47,15 +47,15 @@ export default class Map extends Component {
               })
             }
           </GoogleMapReact>
-        </div>
+        </section>
       );
     }
 
     console.log(this.props.data);
     return (
-      <div>
+      <section>
         <Poimarker />
-      </div>
+      </section>
     );
   }
 }
@@ -123,7 +123,7 @@ export default class Map extends Component {
 //   });
 
 //   return (
-//     <div style={{ height: "50vw", width: "100%" }}>
+//     <section style={{ height: "50vw", width: "100%" }}>
 //       <GoogleMapReact
 //         bootstrapURLKeys={{
 //           key: `AIzaSyCk79ODgAFqY9di7oVX5Zh_zdIyecxZvks`,
@@ -162,7 +162,7 @@ export default class Map extends Component {
 //                 lat={latitude}
 //                 lng={longitude}
 //               >
-//                 <div className="cluster-marker"
+//                 <section className="cluster-marker"
 //                   style={{
 //                     width: `${10 + (pointCount / points.length) * 20}px`,
 //                     height: `${10 + (pointCount / points.length) * 20}px`
@@ -177,7 +177,7 @@ export default class Map extends Component {
 //                   }}
 //                 >
 //                   {pointCount}
-//                 </div>
+//                 </section>
 //               </Marker>
 //             );
 //           }
@@ -193,13 +193,13 @@ export default class Map extends Component {
 //                 (() => {console.log(`poi-${cluster.properties.name}`)})
 //                 }>
 
-//                 <div className="labelMaker"> </div>
+//                 <section className="labelMaker"> </section>
 //               </button>
 //             </Marker>
 //           );
 //         })}
 //       </GoogleMapReact>
 
-//     </div>
+//     </section>
 //   );
 // }

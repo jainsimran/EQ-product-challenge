@@ -21,7 +21,7 @@ export default class LineGraph extends Component {
         };
 
         return (
-            <div>
+            <section>
             <h1>{data.title}</h1>
             <Line
                 data={data}
@@ -53,7 +53,7 @@ export default class LineGraph extends Component {
                 }}
             />
 
-            </div>
+            </section>
         )
     }
 }

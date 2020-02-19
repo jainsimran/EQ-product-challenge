@@ -27,7 +27,7 @@ export default class DataTableSection extends Component {
             return;
         }
         const strContainingIdxs = [];
-        this.state.data.map((item, idx) => item.name.toLowerCase().includes(str.toLowerCase()) ? strContainingIdxs.push(idx): null);
+        this.state.data.map((item, idx) => item.name.toLowerCase().includes(str.toLowerCase()) ? strContainingIdxs.push(idx) : null);
         this.setState({
             searchedDataset: strContainingIdxs,
         });
@@ -37,26 +37,12 @@ export default class DataTableSection extends Component {
         fetchStatsDaily()
             .then(data => {
                 let statsData = [];
-                let statsColumns = [{
-                    name: 'date',
-                    selector: 'date',
-                    sortable: true,
-                },
-                {
-                    name: 'impressions',
-                    selector: 'impressions',
-                    sortable: true
-                },
-                {
-                    name: 'clicks',
-                    selector: 'clicks',
-                    sortable: true
-                },
-                {
-                    name: 'revenue',
-                    selector: 'revenue',
-                    sortable: true
-                }];
+                let statsColumns = [
+                    {name: 'date'},
+                    {name: 'impressions'},
+                    {name: 'clicks'},
+                    {name: 'revenue'}
+                ];
                 data.forEach((e) => {
                     statsData.push({
                         date: this.formatDate(e.date),
@@ -77,30 +63,13 @@ export default class DataTableSection extends Component {
         fetchPoiAllMetrics()
             .then(data => {
                 let statsColumns = [
-                    {
-                        name: 'name',
-                        selector: 'name'
-                    },
-                    {
-                        name: 'date',
-                        selector: 'date'
-                    },
-                    {
-                        name: 'hour',
-                        selector: 'hour'
-                    },
-                    {
-                        name: 'impressions',
-                        selector: 'impressions'
-                    },
-                    {
-                        name: 'clicks',
-                        selector: 'clicks'
-                    },
-                    {
-                        name: 'revenue',
-                        selector: 'revenue'
-                    }];
+                    {name: 'name'},
+                    {name: 'date'},
+                    {name: 'hour'},
+                    {name: 'impressions'},
+                    {name: 'clicks'},
+                    {name: 'revenue'}
+                ];
                 let statsData = [];
                 data.forEach((e) => {
                     statsData.push({
@@ -142,31 +111,35 @@ export default class DataTableSection extends Component {
     render() {
         return (
             <section className='cardEffect'>
+
                 <h2>Display</h2>
-                <label>
-                    <input
-                        type="radio"
-                        value="daily"
-                        onChange={this.handleChangeDataFrequencyType}
-                        checked={this.state.dataFrequencyType === 'daily'}
-                    />
-                    Daily statistics
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        value="hourly"
-                        onChange={this.handleChangeDataFrequencyType}
-                        checked={this.state.dataFrequencyType === 'hourly'}
-                    />
-                    Hourly statistics
-                </label>
-                {this.state.dataFrequencyType === 'hourly' ? <FuzzySearch searchHandler={this.searchHandler}/> : null}
+                <section className='switchOpt'>
+                    <label>
+                        <input
+                            type="radio"
+                            value="daily"
+                            onChange={this.handleChangeDataFrequencyType}
+                            checked={this.state.dataFrequencyType === 'daily'}
+                        />
+                        Daily statistics
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="hourly"
+                            onChange={this.handleChangeDataFrequencyType}
+                            checked={this.state.dataFrequencyType === 'hourly'}
+                        />
+                        Hourly statistics
+                    </label>
+                    {this.state.dataFrequencyType === 'hourly' ? <FuzzySearch searchHandler={this.searchHandler} /> : null}
+                </section>
+
                 <Datatable
-                    data={this.state.data} 
-                    columns={this.state.columns} 
-                    title={this.state.title} 
-                    highlightIdxs={this.state.searchedDataset}    
+                    data={this.state.data}
+                    columns={this.state.columns}
+                    title={this.state.title}
+                    highlightIdxs={this.state.searchedDataset}
                 />
             </section>
         )

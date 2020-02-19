@@ -17,13 +17,13 @@ const routing = (
             <img src={logo}  id='logo' alt="EQ Works"/>
           </li>
           <li>
-            <Link to="/chart">Chart</Link>
+            <Link to="/chart"> Events chart</Link>
           </li>
           <li>
-            <Link to="/table">Table</Link>
+            <Link to="/table"> Statistics Table</Link>
           </li>
           <li>
-            <Link to="/map">Map</Link>
+            <Link to="/map">Point of interest Map</Link>
           </li>
         </ul>
       </section>

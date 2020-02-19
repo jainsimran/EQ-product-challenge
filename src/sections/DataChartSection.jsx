@@ -23,24 +23,7 @@ export default class DataChartSection extends Component {
         const mapEventsPerDate = {};
         fetchEventHourlyData()
             .then(eventdata => {
-                // console.log(eventdata)
-                // let eventhour = [];
-                // let eventnum = [];
-                // let eventdate = [];
-                // eventdata.forEach((e) => {
-                //     eventhour.push(e.hour)
-                //     eventnum.push(e.events)
-                //     eventdate.push(this.formatDate(e.date));
-                // });
-                // this.setState({
-                //     label: eventnum,
-                //     data:  eventhour,
-                //     title: 'Hourly events'
-                // })
                 eventdata.map(item => {
-                    // check if item.date already exist in mapEventsPerDate
-                    // if yes, add {hour: item.hour, events: item.events} to the array
-                    // else add a key item.date to the mapEventsPerDate and create an arry with {hour: item.hour, events: item.events}
                     const currentItemDate = item.date.split('T')[0];
                     if (mapEventsPerDate[currentItemDate]) {
                         const dateList = mapEventsPerDate[currentItemDate];
@@ -49,9 +32,11 @@ export default class DataChartSection extends Component {
                     } else {
                         mapEventsPerDate[currentItemDate] = [{ hour: item.hour, event: item.events }];
                     }
+                    return null;
                 });
                 this.setState({
-                    formattedData: mapEventsPerDate
+                    formattedData: mapEventsPerDate,
+                    title: 'Hourly events'
                 });
             });
     }
@@ -59,7 +44,6 @@ export default class DataChartSection extends Component {
     getDailyEventsData = () => {
         fetchEventDailyData()
             .then(eventdata => {
-                // console.log(eventdata);
                 let eventdate = [];
                 let eventnum = [];
                 eventdata.forEach((e) => {
@@ -78,14 +62,11 @@ export default class DataChartSection extends Component {
     formatDate = inputDate => inputDate.split('T')[0];
 
     switchData = () => {
-        // console.log(this.state.dataFrequencyType);
         if (this.state.dataFrequencyType === 'hourly') {
             this.getHourlyEventsData();
-            // console.log(this.state.dataFrequencyType);
         }
         else {
             this.getDailyEventsData();
-            // console.log(this.state.dataFrequencyType);
         }
     }
 
@@ -93,7 +74,6 @@ export default class DataChartSection extends Component {
         this.setState({
             dataFrequencyType: event.target.value
         }, this.switchData);
-
     }
 
     handleDateSelection = (event) => {

@@ -1,4 +1,4 @@
-import GoogleMapReact, { InfoWindow } from 'google-map-react';
+import GoogleMapReact from 'google-map-react';
 import React, { Component } from 'react';
 
 export default class Map extends Component {
@@ -17,16 +17,14 @@ export default class Map extends Component {
 
     const Marker = () => {
       return (
-        <section className='labelMaker' 
-        // onClick={() => <InfoWindow> <h1>{this.props.data.name}</h1> </InfoWindow>}
-        > </section>
+        <section className='labelMaker'> </section>
       );
     }
 
 
     const Poimarker = () => {
       return (
-        <section style={{ height: '50vh', width: '100%' }}>
+        <section style={{ height: '85vh', width: '100%' }}>
           <GoogleMapReact
             bootstrapURLKeys={{ key: `AIzaSyCk79ODgAFqY9di7oVX5Zh_zdIyecxZvks` }}
             defaultCenter={this.state.center}
@@ -41,7 +39,6 @@ export default class Map extends Component {
                     lng={item.lng}
                     title={item.name}
                   >
-                    
                   </Marker>
                 );
               })

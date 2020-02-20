@@ -64,6 +64,10 @@ export default class DataChartSection extends Component {
 
     switchData = () => {
         if (this.state.dataFrequencyType === 'hourly') {
+            this.setState({ 
+                label: null, 
+                data: null 
+            })
             this.getHourlyEventsData();
         }
         else {
@@ -121,8 +125,9 @@ export default class DataChartSection extends Component {
                         <select
                             onChange={this.handleDateSelection}
                         >
-                        {Object.keys(this.state.formattedData).map(dt => (
-                            <option value={dt}>{dt}</option>
+                            <option>Select Date</option>
+                        {Object.keys(this.state.formattedData).map((dt, idx) => (
+                            <option value={dt} key={idx}>{dt}</option>
                         ))}
                         </select>
                     )}

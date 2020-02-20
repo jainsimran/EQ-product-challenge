@@ -13,6 +13,7 @@ export default class LineGraph extends Component {
                     backgroundColor: '#003459',
                     borderColor: '#007EA7',
                     borderWidth: 2,
+                    fontSize: '18px',
                     data: this.props.data
                 }
             ],

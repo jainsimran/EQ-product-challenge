@@ -92,8 +92,7 @@ export default class DataChartSection extends Component {
         });
         this.setState({
             label: newDateLabel,
-            data: newDateData,
-            xAxisLabel: 'Hours in selected date'
+            data: newDateData
         });
     }
 

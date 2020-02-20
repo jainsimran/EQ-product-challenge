@@ -5,10 +5,9 @@ body {
   --fourthColor: #00A8E8;
   --fifthColor: #FFFFFF;
   font-family: 'Source Sans Pro', sans-serif;
-  /* background-color: var(--primaryColor); */
   }
 
-.contentWrapper{
+.contentWrapper {
   margin-left: 200px;
   width: calc(100% - 200px);
 }
@@ -19,6 +18,30 @@ body {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   width: 98%;
   height: 95vh;
+}
+
+.homeHeading{
+  background: linear-gradient(90deg, rgba(3, 78, 144, 0.9) 0%, rgba(25, 180, 215, 0.9) 100%);
+  font-family: Montserrat;
+}
+
+.homeHeading h3,p{
+  letter-spacing: -1px;
+  font-size: 50px;
+  font-weight: 400;
+  color: var(--fifthColor);
+  margin: 0;
+  text-align: center;
+  top: 40%;
+  position: absolute;
+  width: calc(100% - 250px);
+}
+
+.homeHeading p{
+  top: 50%;
+  font-size: 20px;
+  font-weight: 200;
+  letter-spacing: 1px;
 }
 
 input,
@@ -132,7 +155,7 @@ tr:hover {
 
 
 /*************** Navigation  */
-#logo{
+.logo{
   width: 50%;
 }
 
@@ -166,7 +189,11 @@ tr:hover {
   text-decoration: none;
 }
 
+.nav li a.active {
+  color: var(--fourthColor);
+}
+
 .nav li:hover {
-  background-color: #555;
+  background-color: var(--secondaryColor);
   color: white;
 }

@@ -3,8 +3,8 @@ import LineGraph from '../components/LineGraph';
 import { fetchEventDailyData, fetchEventHourlyData } from '../apis/product';
 
 export default class DataChartSection extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             dataFrequencyType: 'daily',
             formattedData: null,

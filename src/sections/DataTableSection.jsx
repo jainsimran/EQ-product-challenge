@@ -111,9 +111,8 @@ export default class DataTableSection extends Component {
     render() {
         return (
             <section className='cardEffect'>
-
-                <h2>Display</h2>
-                <section className='switchOpt'>
+                <h2>Show statistics of events on the following basis:</h2>
+                <section>
                     <label>
                         <input
                             type="radio"
@@ -121,7 +120,7 @@ export default class DataTableSection extends Component {
                             onChange={this.handleChangeDataFrequencyType}
                             checked={this.state.dataFrequencyType === 'daily'}
                         />
-                        Daily statistics
+                        Daily 
                     </label>
                     <label>
                         <input
@@ -130,7 +129,7 @@ export default class DataTableSection extends Component {
                             onChange={this.handleChangeDataFrequencyType}
                             checked={this.state.dataFrequencyType === 'hourly'}
                         />
-                        Hourly statistics
+                        Hourly 
                     </label>
                     {this.state.dataFrequencyType === 'hourly' ? <FuzzySearch searchHandler={this.searchHandler} /> : null}
                 </section>

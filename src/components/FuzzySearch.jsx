@@ -16,7 +16,7 @@ export default class FuzzySearch extends Component {
     render() {
         return (
             <section className='searchBox'>
-                Search location:
+                Search by name:
                 <input 
                 type='text' 
                 value={this.state.searchInput}

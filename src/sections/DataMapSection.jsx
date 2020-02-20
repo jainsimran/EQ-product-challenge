@@ -35,7 +35,7 @@ export default class DataMapSection extends Component {
     render() {
         return (
             <section  className='cardEffect'>
-                <h1>Top 10 point of interests.</h1>
+                <h1>The points of interest</h1>
                 <MapContainer data={this.state.mapData}/>
             </section>
         )

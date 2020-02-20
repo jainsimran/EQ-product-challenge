@@ -10,8 +10,8 @@ export default class LineGraph extends Component {
                     label: 'EVENTS',
                     fill: false,
                     lineTension: 0.5,
-                    backgroundColor: 'rgba(75,192,192,1)',
-                    borderColor: '#5D737E',
+                    backgroundColor: '#003459',
+                    borderColor: '#007EA7',
                     borderWidth: 2,
                     data: this.props.data
                 }
@@ -22,37 +22,36 @@ export default class LineGraph extends Component {
 
         return (
             <section>
-            <h1>{data.title}</h1>
-            <Line
-                data={data}
-                options={{
-                    legend: {
-                        display: true,
-                        position: 'right'
-                    },
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Event number'
-                              }
-                        }],
-                        xAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            },
-                            scaleLabel: {
-                                display: true,
-                                labelString: `${data.xAxisLabel}`
-                              }
-                        }]
-                    }
-                }}
-            />
-
+                <h1>{data.title}</h1>
+                <Line
+                    data={data}
+                    options={{
+                        legend: {
+                            display: true,
+                            position: 'right'
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: 'The number of events'
+                                }
+                            }],
+                            xAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                },
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: `${data.xAxisLabel}`
+                                }
+                            }]
+                        }
+                    }}
+                />
             </section>
         )
     }

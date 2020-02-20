@@ -10,8 +10,8 @@ export default class DataChartSection extends Component {
             formattedData: null,
             label: [],
             data: [],
-            title: 'Daily events', 
-            xAxisLabel: ''   
+            title: 'Daily events',
+            xAxisLabel: ''
         }
     }
 
@@ -36,7 +36,8 @@ export default class DataChartSection extends Component {
                 });
                 this.setState({
                     formattedData: mapEventsPerDate,
-                    title: 'Hourly events'
+                    title: 'Hourly events',
+                    xAxisLabel: 'The number of hours of a selected date'
                 });
             });
     }
@@ -77,7 +78,6 @@ export default class DataChartSection extends Component {
     }
 
     handleDateSelection = (event) => {
-        console.log(event.target.value);
         const selectedDate = event.target.value;
         const eventsOnSelectedDate = this.state.formattedData[selectedDate];
         let newDateLabel = [];
@@ -97,40 +97,42 @@ export default class DataChartSection extends Component {
     render() {
         return (
             <section className="cardEffect">
-                <h2>Display</h2>
-                <label>
-                    <input
-                        type="radio"
-                        value="daily"
-                        onChange={this.handleChangeDataFrequencyType}
-                        checked={this.state.dataFrequencyType === 'daily'}
-                    />
-                    Daily events
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        value="hourly"
-                        onChange={this.handleChangeDataFrequencyType}
-                        checked={this.state.dataFrequencyType === 'hourly'}
-                    />
-                    Hourly events
-                </label>
-                {this.state.dataFrequencyType === 'hourly' && this.state.formattedData && (
-                    <select
-                        onChange={this.handleDateSelection}
-                    >
+            <h2>Show the number of events on the following basis:</h2>
+                <section>
+                    <label>
+                        <input
+                            type="radio"
+                            value="daily"
+                            onChange={this.handleChangeDataFrequencyType}
+                            checked={this.state.dataFrequencyType === 'daily'}
+                        />
+                        Daily basis
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="hourly"
+                            onChange={this.handleChangeDataFrequencyType}
+                            checked={this.state.dataFrequencyType === 'hourly'}
+                        />
+                        Hourly basis
+                    </label>
+                    {this.state.dataFrequencyType === 'hourly' && this.state.formattedData && (
+                        <select
+                            onChange={this.handleDateSelection}
+                        >
                         {Object.keys(this.state.formattedData).map(dt => (
                             <option value={dt}>{dt}</option>
                         ))}
-                    </select>
-                )}
+                        </select>
+                    )}
+                </section>
 
-                <LineGraph 
-                label={this.state.label} 
-                data={this.state.data} 
-                title={this.state.title} 
-                xAxisLabel={this.state.xAxisLabel}
+                <LineGraph
+                    label={this.state.label}
+                    data={this.state.data}
+                    title={this.state.title}
+                    xAxisLabel={this.state.xAxisLabel}
                 />
             </section>
         )
